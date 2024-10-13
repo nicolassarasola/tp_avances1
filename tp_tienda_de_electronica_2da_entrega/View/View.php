@@ -10,9 +10,10 @@ class View{
     require_once './Templates/header.phtml';
    }
 
-   public function showCatalogo($juegos){
+   public function showCatalogo($juego, $consola){
       require_once './Templates/header.phtml';
-      require_once './Templates/showCatalogo.phtml';
+      require_once './Templates/headerTabla.phtml';
+      require './templates/showJuego.phtml';
    }
 
    public function getId($valor){
@@ -21,7 +22,7 @@ class View{
      
    }
 
-   public function showJuego($juego){
+   public function showJuego($juego, $consola){
        require_once './Templates/header.phtml';
        require_once './templates/showJuego.phtml';
    }
@@ -41,8 +42,13 @@ class View{
       echo '----------------------------------------';
    }
 
+   public function showMensaje($mensaje){
+      require_once './Templates/header.phtml';
+      require_once './Templates/showMensaje.phtml';
+   }
+
    public function showError($error){
       require_once './Templates/header.phtml';
-      require_once '.Templates/showError.phtml';
+      require_once './Templates/showError.phtml';
    }
 }

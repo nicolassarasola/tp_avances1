@@ -8,7 +8,7 @@ class Model {
     }
 
     public function getJuego($id){  
-        $sentencia= $this->db->prepare('SELECT `nombre`, `fecha_lanzamiento`,`jugadores` FROM `juegos` WHERE ID = ?');
+        $sentencia= $this->db->prepare('SELECT * FROM `juegos` WHERE ID = ?');
         $sentencia->execute(array($id));  
         $juego = $sentencia->fetch(PDO::FETCH_OBJ);
         
@@ -29,6 +29,21 @@ class Model {
         return $juegos=$sentencia->fetchAll(PDO::FETCH_OBJ);
     }
 
+
+
+    
+
+    public function getConsola($id){  
+        $sentencia= $this->db->prepare('SELECT * FROM `consolas` WHERE ID = ?');
+        $sentencia->execute(array($id));  
+        $consola = $sentencia->fetch(PDO::FETCH_OBJ);
+        
+        return $consola;
+    }
+
+
+
+    
     public function getConsolas(){
         $sentencia= $this->db->prepare('SELECT * FROM `consolas`');
         $sentencia->execute(); 
