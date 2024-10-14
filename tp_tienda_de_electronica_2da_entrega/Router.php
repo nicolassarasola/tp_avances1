@@ -34,7 +34,21 @@ switch ($params[0]) {
         $controller= new Controller();
         $controller->showCategorias();
         break;
-    /*  case 'add':
+  case 'addJuego':
+        $controller= new Controller();
+        $controller->addJuego();
+        break;
+/*    case 'delete':
+        $controller= new Controller();
+        $controller->deleteJuego();
+        break;
+   
+    case 'update':
+        $controller = new Controller();
+        $controller->updateJuego();
+        break;
+        /*
+  case 'add':
         $controller= new Controller();
         $controller->addConsola();
         break;
@@ -46,7 +60,8 @@ switch ($params[0]) {
     case 'update':
         $controller = new Controller();
         $controller->updateConsola();
-        break;*/
+        break;
+        */
     default:
         echo('404 Page not found');
         break;

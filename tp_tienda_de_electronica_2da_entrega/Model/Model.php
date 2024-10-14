@@ -29,26 +29,31 @@ class Model {
         return $juegos=$sentencia->fetchAll(PDO::FETCH_OBJ);
     }
 
-
-
-    
-
     public function getConsola($id){  
         $sentencia= $this->db->prepare('SELECT * FROM `consolas` WHERE ID = ?');
         $sentencia->execute(array($id));  
         $consola = $sentencia->fetch(PDO::FETCH_OBJ);
         
         return $consola;
-    }
-
-
-
-    
+    } 
     public function getConsolas(){
         $sentencia= $this->db->prepare('SELECT * FROM `consolas`');
         $sentencia->execute(); 
         
         return $consolas=$sentencia->fetchAll(PDO::FETCH_OBJ);
+    }
+
+
+    public function addJuego($nombre,$fechaLanzamiento,$jugadores,$idConsola){
+    
+        try{
+        $sentencia = $this->db->prepare("INSERT INTO `juegos`(`nombre`, `fecha_lanzamiento`,`jugadores`,`ID_consola`) VALUES (?,?,?,?)");
+
+            $sentencia->execute([$nombre,$fechaLanzamiento,$jugadores,$idConsola]);
+        }
+        catch(Exception $e){
+            return;
+        }
     }
 
 }

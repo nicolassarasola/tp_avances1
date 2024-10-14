@@ -50,10 +50,6 @@ class Controller {
         
     }
 
-
-
-
-
     public function showCategoriaEspecifica(){
         $this->view->getId('categoria');
         if(!empty($_POST['ID'])){
@@ -71,8 +67,6 @@ class Controller {
             $this->view->showMensaje('por favor inserte id de la categoria a buscar');
         }
     }
-       
-
 
     public function showCategorias(){
         $consolas=$this->model->getConsolas();
@@ -84,5 +78,58 @@ class Controller {
         }
     }
 
+
+    public function addJuego(){
+        
+            $this->view->showFormAddJuego();
+
+            if ((!isset($_POST['nombre']) || empty($_POST['nombre']))
+                ||(!isset($_POST['fecha_lanzamiento'])|| empty($_POST['fecha_lanzamiento']))
+                ||(!isset($_POST['jugadores']) || empty($_POST['jugadores']))
+                ||(!isset($_POST['ID_consola']) || empty($_POST['ID_consola']))) {
+                $this->view->showMensaje('ingrese los datos correctamente');
+            }
+            else{
+
+                    $nombre = $_POST['nombre'];
+                    $fechaLanzamiento = $_POST['fecha_lanzamiento'];
+                    $jugadores = $_POST['jugadores'];
+                    $idConsola = $_POST['ID_consola'];
+                
+                    $this->model->addJuego($nombre,$fechaLanzamiento,$jugadores,$idConsola);
+                
+            }
+            $this->showHome();
+        
+    }
+
+    /*public function addJuego(){
+        
+        $this->view->showFormAddJuego();
+
+        if (!isset($_POST['nombre']) || empty($_POST['nombre'])||(!isset($_POST['marca']) || empty($_POST['marca']))) {
+            $this->view->showError('falta ingresar datos');
+        }
+        else{
+           
+            $this->model->getConsola($nombre)
+           /* if($consola){
+
+            }
+            else{
+               $nombre = $_POST['nombre'];
+                $fechaLanzamiento = $_POST['fecha_lanzamiento '];
+                $jugadores = $_POST['jugadores'];
+                $idConsola = $_POST['ID_consola'];
+            
+                $this->model->addJuego($nombre,$fechaLanzamiento,$jugadores,$idConsola);
+            }
+            
+        }
+        $this->showHome();
+    
+    }
+
+    */
 
 }
