@@ -97,32 +97,39 @@ class Controller {
                     $idConsola = $_POST['ID_consola'];
                 
                     $this->model->addJuego($nombre,$fechaLanzamiento,$jugadores,$idConsola);
+                    $this->view->showMensaje('juego agregado correctamente');
                 
             }
             $this->showHome();
         
     }
 
-    /*public function addJuego(){
+    public function addConsola(){
         
-        $this->view->showFormAddJuego();
+        $this->view->showFormAddConsola();
 
-        if (!isset($_POST['nombre']) || empty($_POST['nombre'])||(!isset($_POST['marca']) || empty($_POST['marca']))) {
-            $this->view->showError('falta ingresar datos');
-        }
+        if ((!isset($_POST['nombre']) || empty($_POST['nombre']))
+            ||(!isset($_POST['marca'])|| empty($_POST['marca']))
+            ||(!isset($_POST['color']) || empty($_POST['color']))
+            ||(!isset($_POST['generacion']) || empty($_POST['generacion']))) {
+
+            $this->view->showMensaje('ingrese los datos correctamente');
+        }   
+
         else{
-           
-            $this->model->getConsola($nombre)
-           /* if($consola){
-
+            $nombre= $_POST['nombre'];
+            $consola=$this->model->getConsolaByName($nombre);
+            if($consola){
+                $this->view->ShowError('consola existente en el sistema');
             }
             else{
-               $nombre = $_POST['nombre'];
-                $fechaLanzamiento = $_POST['fecha_lanzamiento '];
-                $jugadores = $_POST['jugadores'];
-                $idConsola = $_POST['ID_consola'];
+                $nombre = $_POST['nombre'];
+                $marca = $_POST['marca'];
+                $color = $_POST['color'];
+                $generacion = $_POST['generacion'];
             
-                $this->model->addJuego($nombre,$fechaLanzamiento,$jugadores,$idConsola);
+                $this->model->addConsola($nombre,$marca,$color,$generacion);
+                $this->view->showMensaje('consola agregada correctamente');
             }
             
         }
@@ -130,6 +137,83 @@ class Controller {
     
     }
 
-    */
+
+    public function updateConsola(){
+            $consolas=$this->model->getConsolas();
+            $this->view->showUpdateConsolas($consolas);
+
+        if ((!isset($_POST['nombre']) || empty($_POST['nombre']))
+            ||(!isset($_POST['marca'])|| empty($_POST['marca']))
+            ||(!isset($_POST['color']) || empty($_POST['color']))
+            ||(!isset($_POST['generacion']) || empty($_POST['generacion']))
+            ||(!isset($_POST['ID']) || empty($_POST['ID']))) {
+
+            $this->view->showMensaje('ingrese los datos correctamente');
+        }   
+        else{
+            
+            $id = $_POST['ID'];
+            $nombre = $_POST['nombre'];
+            $marca = $_POST['marca'];
+            $color = $_POST['color'];
+            $generacion = $_POST['generacion'];
+
+            if($id){
+               $consola=$this->model->getConsolaByName($nombre);
+                
+                if($consola){    
+                    $this->view->showError('consola no valida, el elemento ya existe');
+                }
+                else{
+                    $this->model->updateConsola($id,$nombre,$marca,$color,$generacion);
+                    
+                    $this->view->showMensaje('cambio realizado');
+                }
+            }
+        }
+    }
+
+
+
+
+
+
+
+
+    public function updateJuego(){
+        $juegos=$this->model->getJuegos();
+        $consolas=$this->model->getConsolas();
+        $this->view->showUpdateJuegos($juegos,$consolas);
+
+    if ((!isset($_POST['nombre']) || empty($_POST['nombre']))
+        ||(!isset($_POST['fecha_lanzamiento'])|| empty($_POST['fecha_lanzamiento']))
+        ||(!isset($_POST['jugadores']) || empty($_POST['jugadores']))
+        ||(!isset($_POST['ID_consola']) || empty($_POST['ID_consola'])) 
+        ||(!isset($_POST['ID']) || empty($_POST['ID']))) {
+
+        $this->view->showMensaje('ingrese los datos correctamente');
+    }   
+    else{
+        
+        $id = $_POST['ID'];
+        $nombre = $_POST['nombre'];
+        $fecha_lanzamiento = $_POST['fecha_lanzamiento'];
+        $jugadores = $_POST['jugadores'];
+        $IDConsola = $_POST['ID_consola'];
+
+        if($id){
+    
+            $this->model->updateConsola($nombre,$fecha_lanzamiento,$jugadores,$IDConsola,$id);
+            
+            $this->view->showMensaje('cambio realizado');
+            
+        }
+
+
+
+    }
+}
+
+    
 
 }

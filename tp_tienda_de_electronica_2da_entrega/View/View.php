@@ -58,5 +58,18 @@ class View{
       require_once './Templates/formAddJuego.phtml';
    }
 
+   public function showFormAddConsola(){
+      require_once './Templates/header.phtml';
+      require_once './Templates/formAddConsola.phtml';
+   }
 
+   public function showUpdateConsolas($consolas){
+      require_once './Templates/header.phtml';
+      require_once './Templates/formUpdateConsola.phtml';
+   }
+
+   public function showUpdateJuegos($juegos,$consolas){
+      require_once './Templates/header.phtml';
+      require_once './Templates/formUpdateJuego.phtml';
+   }
 }
