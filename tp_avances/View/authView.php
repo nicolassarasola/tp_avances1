@@ -4,10 +4,8 @@ class AuthView {
     private $user = null;
 
     public function showLogin($error = '') {
-        require 'templates/form_login.phtml';
+        require 'templates/formLogin.phtml';
     }
 
-    public function showSignup($error = '') {
-        require 'templates/form_signup.phtml';
-    }
+
 }

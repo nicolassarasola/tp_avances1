@@ -53,7 +53,7 @@ class View{
       require_once './Templates/showError.phtml';
    }
 
-   public function showFormAddJuego(){
+   public function showFormAddJuego($consolas){//<-----falta agregar el seleccionar la consola a la que pertenece clickeandola
       require_once './Templates/header.phtml';
       require_once './Templates/formAddJuego.phtml';
    }

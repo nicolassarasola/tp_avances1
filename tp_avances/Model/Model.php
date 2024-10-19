@@ -36,6 +36,8 @@ class Model {
         return $juegos = $sentencia->fetchAll(PDO::FETCH_OBJ);
     }
 
+
+
     public function getCategoriaEspecifica($IDConsola){
         $sentencia= $this->db->prepare('SELECT * FROM `juegos` WHERE ID_consola = ?');
         $sentencia->execute(array($IDConsola));
@@ -70,17 +72,30 @@ class Model {
     }
 
 
-    public function addJuego($nombre,$fechaLanzamiento,$jugadores,$IDConsola){
-    
-        try{
-        $sentencia = $this->db->prepare("INSERT INTO `juegos`(`nombre`, `fecha_lanzamiento`,`jugadores`,`ID_consola`) VALUES (?,?,?,?)");
+/////////////////////////////////////////////////
 
-            $sentencia->execute([$nombre,$fechaLanzamiento,$jugadores,$IDConsola]);
-        }
-        catch(Exception $e){
-            return;
-        }
+    public function addjuego($nombre,$fechaLanzamiento,$jugadores,$IDConsola, $imagen = null) {
+        $pathImg = null;
+        if ($imagen)
+            $pathImg = $this->uploadImage($imagen);
+
+        $query = $this->db->prepare('INSERT INTO  `juegos`(`nombre`, `fecha_lanzamiento`,`jugadores`,`ID_consola`, imagen) VALUES(?,?,?,?,?)');
+        $query->execute([$nombre,$fechaLanzamiento,$jugadores,$IDConsola, $pathImg]);
+
+        return $this->db->lastInsertId();
     }
+
+    private function uploadImage($image){
+   
+        $target = './img/juego/' . uniqid() . "." . strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));  
+        move_uploaded_file($image['tmp_name'], $target);
+        return $target;
+    }
+
+
+
+//////////////////////////////////////////////////
+
 
     public function addConsola($nombre,$marca,$color,$generacion){
         try{
@@ -94,18 +109,7 @@ class Model {
     }
 
 
-    public function updateConsola($id,$nombre,$marca,$color,$generacion){
-        
-        try{
-            $consulta = $this->db->prepare('UPDATE`consolas` SET `nombre`=?, `marca`=?, `color`=?, `generacion`=? WHERE ID=? ');
-            $consulta->execute(array($nombre,$marca,$color,$generacion,$id));
-            
-        }
-        catch(Exception $e){
-            return;
-        }
-        
-    }
+
 
     public function updateJuego($nombre,$fechaLanzamiento,$jugadores,$IDConsola,$id){
         
@@ -119,5 +123,21 @@ class Model {
         }
         
     }
+    
+    public function updateConsola($id,$nombre,$marca,$color,$generacion){
+        
+        try{
+            $consulta = $this->db->prepare('UPDATE`consolas` SET `nombre`=?, `marca`=?, `color`=?, `generacion`=? WHERE ID=? ');
+            $consulta->execute(array($nombre,$marca,$color,$generacion,$id));
+            
+        }
+        catch(Exception $e){
+            return;
+        }
+        
+    }
+
+
+
 
 }

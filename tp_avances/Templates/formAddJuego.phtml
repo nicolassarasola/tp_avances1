@@ -1,9 +1,10 @@
-<form action="addJuego" method="POST">
+<form action="addJuego" method="POST" enctype="multipart/form-data">
     
     <input type="text" name="nombre" placeholder="inserte nombre">
     <input type="date" name="fecha_lanzamiento">
     <input type="number" name="jugadores" placeholder="jugadores">
     <input type="number" name="ID_consola" placeholder="id de consola">
+    <input type="file" name="input_name" id="imageToUpload">
 
     <button type="submit">agregar</button>
 </form>

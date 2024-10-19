@@ -12,7 +12,6 @@ class AuthController {
     }
 
     public function showLogin() {
-        // Muestro el formulario de login
         return $this->view->showLogin();
     }
 
@@ -28,28 +27,25 @@ class AuthController {
         $email = $_POST['email'];
         $password = $_POST['password'];
     
-        // Verificar que el usuario está en la base de datos
+       
         $userFromDB = $this->model->getUserByEmail($email);
 
-        // password: 123456
-        // $userFromDB->password: $2y$10$xQop0wF1YJ/dKhZcWDqHceUM96S04u73zGeJtU80a1GmM.H5H0EHC
         if($userFromDB && password_verify($password, $userFromDB->password)){
-            // Guardo en la sesión el ID del usuario
+          
             session_start();
             $_SESSION['ID_USER'] = $userFromDB->id;
             $_SESSION['EMAIL_USER'] = $userFromDB->email;
             $_SESSION['LAST_ACTIVITY'] = time();
     
-            // Redirijo al home
             header('Location: ' . BASE_URL);
         } else {
-            return $this->view->showLogin('Credenciales incorrectas');
+            return $this->view->showLogin('contraseña o mail incorrectos');
         }
     }
 
     public function logout() {
-        session_start(); // Va a buscar la cookie
-        session_destroy(); // Borra la cookie que se buscó
+        session_start(); 
+        session_destroy(); 
         header('Location: ' . BASE_URL);
     }
 }

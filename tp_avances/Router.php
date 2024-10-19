@@ -28,10 +28,10 @@ switch ($params[0]) {
     case 'catalogo':
         $controller= new Controller();
         $controller->showCatalogo();
-        break;
+        break; 
     case 'juego':
         $controller= new Controller();
-        $controller->showJuego();
+        $controller->showJuego($params[1]);
         break;
     case 'categoria':
         $controller= new Controller();

@@ -27,7 +27,7 @@ class Controller {
         }
     }
 
-    public function showJuego(){   
+    public function showJuego($id){   
         $this->view->getId('juego');
         
         if(!empty($_POST['ID'])){
@@ -80,8 +80,8 @@ class Controller {
 
 
     public function addJuego(){
-        
-            $this->view->showFormAddJuego();
+            $consolas=$this->model->getConsolas();        
+            $this->view->showFormAddJuego($consolas);
 
             if ((!isset($_POST['nombre']) || empty($_POST['nombre']))
                 ||(!isset($_POST['fecha_lanzamiento'])|| empty($_POST['fecha_lanzamiento']))
@@ -94,15 +94,25 @@ class Controller {
                     $nombre = $_POST['nombre'];
                     $fechaLanzamiento = $_POST['fecha_lanzamiento'];
                     $jugadores = $_POST['jugadores'];
-                    $idConsola = $_POST['ID_consola'];
-                
-                    $this->model->addJuego($nombre,$fechaLanzamiento,$jugadores,$idConsola);
+                    $IDConsola = $_POST['ID_consola'];
+                /////////////////////////////////////////       ESTO ES PARA LO DE LA IMAGEN
+
+                if($_FILES['input_name']['type'] == "image/jpg" || $_FILES['input_name']['type'] == "image/jpeg" || $_FILES['input_name']['type'] == "image/png" ) {
+                        $this->model->addJuego($nombre,$fechaLanzamiento,$jugadores,$IDConsola,  $_FILES['input_name']);
+                    }
+                    else{
+                        $this->model->addJuego($nombre,$fechaLanzamiento,$jugadores,$IDConsola);
+                        $this->view->showError('error al procesar la imagen');
+                    }
+                /////////////////////////////////////////
+
+                    //$this->model->addJuego($nombre,$fechaLanzamiento,$jugadores,$IDConsola);
                     $this->view->showMensaje('juego agregado correctamente');
-                
+               
             }
-            $this->showHome();
-        
-    }
+            $this->showHome(); 
+        }
+    
 
     public function addConsola(){
         
