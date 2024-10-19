@@ -1,0 +1,38 @@
+<div>
+    <h2 class="subtituloFormBuscador">BUSCADOR DE PRODUCTOS</h2>
+</div>
+
+<main>
+    <form class="form-container" action='' method='POST'>
+        <div class="mb-3">
+            <label for="tipo" class="form-label">ELIJA JUEGO O CATEGORÍA</label>
+            <select class="form-select" name="tipo" id="tipo" required onchange="toggleInputs()">
+                <option value="juego">Juego</option>
+                <option value="categoria">Categoría</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="id_juego" class="form-label">ID Juego</label>
+            <input type="number" name="id_juego" class="form-control" id="id_juego">
+        </div>
+        <div class="mb-3">
+            <label for="categoriaElegida" class="form-label">Categoría</label>
+            <select class="form-select" name="categoriaElegida" id="categoriaElegida" disabled>
+                <option value=""> </option>
+                <option value="1">PS4</option>
+                <option value="2">XBOX</option>
+                <option value="3">NINTENDO</option>
+            </select>
+        </div>
+        <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+        </div>
+        <button type="submit" class="btn btn-primary">BUSCAR</button>
+    </form>
+   
+    <script src="scripts/scriptFormBuscador.js"></script>
+    <script src="../scripts/scriptFormBuscador.js"></script>
+    </body>
+
+    </html>
