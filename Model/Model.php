@@ -93,7 +93,6 @@ class Model {
     }
 
 
-
 //////////////////////////////////////////////////
 
 
@@ -111,13 +110,15 @@ class Model {
 
 
 
-    public function updateJuego($nombre,$fechaLanzamiento,$jugadores,$IDConsola,$id){
-        
+    public function updateJuego($nombre,$fechaLanzamiento,$jugadores,$IDConsola, $imagen = null,$id){
+        $pathImg = null;
+   
         try{
-            $consulta = $this->db->prepare('UPDATE`consolas` SET `juegos`(`nombre`=?, `fecha_lanzamiento`=?,`jugadores`=?,`ID_consola`=?, imagen=? WHERE ID=? ');
-            $consulta->execute(array($nombre,$fechaLanzamiento,$jugadores,$IDConsola,$pathImg,$id));
-           
-    
+            if ($imagen)
+                $pathImg = $this->uploadImage($imagen);
+
+                $consulta = $this->db->prepare('UPDATE`consolas` SET `juegos`(`nombre`=?, `fecha_lanzamiento`=?,`jugadores`=?,`ID_consola`=?, imagen=? WHERE ID=? ');
+                $consulta->execute(array($nombre,$fechaLanzamiento,$jugadores,$IDConsola,$pathImg,$id));    
         }
         catch(Exception $e){
             return;
@@ -137,8 +138,6 @@ class Model {
         }
         
     }
-
-
 
 
 }
