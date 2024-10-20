@@ -188,44 +188,51 @@ class Controller {
 
 
 
-
-
     public function updateJuego(){
         $juegos=$this->model->getJuegos();
         $consolas=$this->model->getConsolas();
         $this->view->showUpdateJuegos($juegos,$consolas);
 
-    if ((!isset($_POST['nombre']) || empty($_POST['nombre']))
-        ||(!isset($_POST['fecha_lanzamiento'])|| empty($_POST['fecha_lanzamiento']))
-        ||(!isset($_POST['jugadores']) || empty($_POST['jugadores']))
-        ||(!isset($_POST['ID_consola']) || empty($_POST['ID_consola'])) 
-        ||(!isset($_POST['ID']) || empty($_POST['ID']))) {
+        if ((!isset($_POST['nombre']) || empty($_POST['nombre']))
+            ||(!isset($_POST['fecha_lanzamiento'])|| empty($_POST['fecha_lanzamiento']))
+            ||(!isset($_POST['jugadores']) || empty($_POST['jugadores']))
+            ||(!isset($_POST['ID_consola']) || empty($_POST['ID_consola'])) 
+            ||(!isset($_POST['ID']) || empty($_POST['ID']))) {
 
-        $this->view->showMensaje('ingrese los datos correctamente');
-    }   
-    else{
-        
-        $id = $_POST['ID'];
-        $nombre = $_POST['nombre'];
-        $fechaLanzamiento = $_POST['fecha_lanzamiento'];
-        $jugadores = $_POST['jugadores'];
-        $IDConsola = $_POST['ID_consola'];
+            $this->view->showMensaje('ingrese los datos correctamente');
+        }   
+        else{
+            
+            $id = $_POST['ID'];
+            $nombre = $_POST['nombre'];
+            $fechaLanzamiento = $_POST['fecha_lanzamiento'];
+            $jugadores = $_POST['jugadores'];
+            $IDConsola = $_POST['ID_consola'];
+            if($id){
+            if($_FILES['input_name']['type'] == "image/jpg" || $_FILES['input_name']['type'] == "image/jpeg" || $_FILES['input_name']['type'] == "image/png" ) {
+                $this->model->addJuego($nombre,$fechaLanzamiento,$jugadores,$IDConsola,  $_FILES['input_name'],$id);
+            }
+            else{ 
+                $this->model->updateConsola($nombre,$fechaLanzamiento,$jugadores,$IDConsola,$id);
+                $this->view->showError('error al procesar la imagen');
+            }
+            }
+
+        }
+    }
+
+    public function deleteJuego($id){
+
         if($id){
-        if($_FILES['input_name']['type'] == "image/jpg" || $_FILES['input_name']['type'] == "image/jpeg" || $_FILES['input_name']['type'] == "image/png" ) {
-            $this->model->addJuego($nombre,$fechaLanzamiento,$jugadores,$IDConsola,  $_FILES['input_name'],$id);
-        }
-        else{ 
-            $this->model->updateConsola($nombre,$fechaLanzamiento,$jugadores,$IDConsola,$id);
-            $this->view->showError('error al procesar la imagen');
-        }
-        }
-
-
-
+            $this->model->deleteJuego($id);
+        }        
 
     }
-}
+    public function deleteConsola($id){
+        if($id){
+            $this->model->deleteJuego($id);
+        }        
 
-    
+    }
 
 }

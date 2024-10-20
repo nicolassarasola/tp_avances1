@@ -51,36 +51,36 @@ switch ($params[0]) {
         $controller= new Controller();
         $controller->showCategorias();
         break;
-  case 'addJuego':
+    case 'addJuego':
         sessionAuthMiddleware($res); // Setea $res->user si existe session
         verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
         $controller= new Controller();
         $controller->addJuego();
         break;
-/*    case 'delete':
+    case 'deleteJuego':
         $controller= new Controller();
-        $controller->deleteJuego();
+        $controller->deleteJuego($params);
         break;
   
-*/ case 'updateJuego':
+    case 'updateJuego':
         sessionAuthMiddleware($res); // Setea $res->user si existe session
         verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
         $controller = new Controller();
         $controller->updateJuego();
         break;
       
-  case 'addConsola':
+    case 'addConsola':
         sessionAuthMiddleware($res); // Setea $res->user si existe session
         verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
         $controller= new Controller();
         $controller->addConsola();
         break;
-   /*  case 'delete':
+    case 'deleteConsola':
         $controller= new Controller();
-        $controller->deleteConsola();
+        $controller->deleteConsola($params[1]);
         break;
   
-    */case 'updateConsola':
+    case 'updateConsola':
         sessionAuthMiddleware($res); // Setea $res->user si existe session
         verifyAuthMiddleware($res); // Verifica que el usuario esté logueado o redirige a login
         $controller = new Controller();
@@ -104,7 +104,3 @@ switch ($params[0]) {
         break;
 }
 
-
-
-
-/*<a href="eliminar/<?= $task->id >" type="button" class='btn btn-danger btn-sm ml-auto'>Borrar</a>/*
