@@ -1,0 +1,30 @@
+
+    
+
+
+//Form Buscador: El usuario elige JUEGO, luego selecciona un ID de JUEGO; se le muestra una tabla con los datos de éste último
+else if (isset($_POST['tipo']) && $_POST['tipo'] === 'juego' && isset($_POST['id_juego']) && is_numeric($_POST['id_juego'])) {
+    $id = (int) $_POST['id_juego'];
+    $controller = new Controller();
+    $controller->showJuego($id);
+}
+
+//Form Buscador: El usuario elige CATEGORÍA, luego selecciona una CONSOLA, que va a ser la categoría elegida para mostrar
+else if (isset($_POST['tipo']) && $_POST['tipo'] === 'categoria' && isset($_POST['categoriaElegida']) && is_numeric($_POST['categoriaElegida'])) {
+    $consolaElegida = (int) $_POST['categoriaElegida'];
+    $controller = new Controller();
+    $controller->showCategoriaEspecifica($consolaElegida);
+}
+
+
+//LO EMPLEAMOS A LA HORA DE LAS SOLICITUDES DE LA URL, EL USUARIO ELIGE UN JUEGO Y UN ID
+//EJEMPLO ../juego/1
+if (
+    strtolower($params[0] === 'juego' && isset($params[1]) && is_numeric($params[1])) ||
+    strtolower($params[0] === 'juego' && isset($params[1]) && is_numeric($params[1]) && isset($params[2]) && $params[2] === "")
+) {
+    $id = (int) $params[1];
+    $controller = new Controller();
+    $controller->showJuego($id);
+
+}
