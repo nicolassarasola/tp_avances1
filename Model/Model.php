@@ -24,25 +24,23 @@ class Model {
     public function getJuego($id){  
         $sentencia= $this->db->prepare('SELECT * FROM `juegos` WHERE ID = ?');
         $sentencia->execute(array($id));  
-        $juego = $sentencia->fetch(PDO::FETCH_OBJ);
+        return $sentencia->fetch(PDO::FETCH_OBJ);
         
-        return $juego;
+      
     }
 
-    public function getJuegos(){
-        $sentencia= $this->db->prepare('SELECT * FROM juegos');
+    
+    public function getCatalogo(){
+        $sentencia = $this->db->prepare('SELECT * FROM juegos');
         $sentencia->execute();  
-
-        return $juegos = $sentencia->fetchAll(PDO::FETCH_OBJ);
+        return $sentencia->fetchAll(PDO::FETCH_OBJ);
     }
 
-
-
-    public function getCategoriaEspecifica($IDConsola){
+    public function getCatalogoEspecifico($consolaElegida){
         $sentencia= $this->db->prepare('SELECT * FROM `juegos` WHERE ID_consola = ?');
-        $sentencia->execute(array($IDConsola));
+        $sentencia->execute(array($consolaElegida));
        
-        return $juegos=$sentencia->fetchAll(PDO::FETCH_OBJ);
+        return $sentencia->fetchAll(PDO::FETCH_OBJ);
     }
 
 
@@ -68,7 +66,7 @@ class Model {
         $sentencia= $this->db->prepare('SELECT * FROM `consolas`');
         $sentencia->execute(); 
         
-        return $consolas=$sentencia->fetchAll(PDO::FETCH_OBJ);
+        return $sentencia->fetchAll(PDO::FETCH_OBJ);
     }
 
 
@@ -78,11 +76,11 @@ class Model {
         $pathImg = null;
         if ($imagen)
             $pathImg = $this->uploadImage($imagen);
-
+        
         $query = $this->db->prepare('INSERT INTO  `juegos`(`nombre`, `fecha_lanzamiento`,`jugadores`,`ID_consola`, imagen) VALUES(?,?,?,?,?)');
         $query->execute([$nombre,$fechaLanzamiento,$jugadores,$IDConsola, $pathImg]);
 
-        //return $this->db->lastInsertId();
+   
     }
 
     private function uploadImage($image){
@@ -109,28 +107,70 @@ class Model {
 
 
 
-
+/*
     public function updateJuego($nombre,$fechaLanzamiento,$jugadores,$IDConsola, $imagen = null,$id){
         $pathImg = null;
    
         try{
             if ($imagen)
                 $pathImg = $this->uploadImage($imagen);
-
-                $consulta = $this->db->prepare('UPDATE`consolas` SET `juegos`(`nombre`=?, `fecha_lanzamiento`=?,`jugadores`=?,`ID_consola`=?, imagen=? WHERE ID=? ');
+                $consulta = $this->db->prepare('UPDATE `consolas` SET `nombre`=?, `fecha_lanzamiento`=?, `jugadores`=?, `ID_consola`=?, imagen=? WHERE ID=?');
+               // $consulta = $this->db->prepare('UPDATE`consolas` SET `juegos`(`nombre`=?, `fecha_lanzamiento`=?,`jugadores`=?,`ID_consola`=?, imagen=? WHERE ID=? ');
                 $consulta->execute(array($nombre,$fechaLanzamiento,$jugadores,$IDConsola,$pathImg,$id));    
         }
         catch(Exception $e){
             return;
         }
         
+    }*/
+
+   /* public function updateJuego($nombre, $fechaLanzamiento, $jugadores, $IDConsola, $imagen = null, $id) {
+        $pathImg = $imagen ? $this->uploadImage($imagen) : null;
+    
+        try {
+            $consulta = $this->db->prepare('UPDATE `consolas` SET `nombre`=?, `fecha_lanzamiento`=?, `jugadores`=?, `ID_consola`=?, imagen=? WHERE ID=?');
+            $consulta->execute(array($nombre, $fechaLanzamiento, $jugadores, $IDConsola, $pathImg, $id));
+        } catch (Exception $e) {
+            // Maneja la excepción, tal vez loguear el error
+            return;
+        }
+    }*/
+
+
+    public function updateJuego($nombre, $fechaLanzamiento, $jugadores, $IDConsola, $imagen = null, $id) {
+        $pathImg = null;
+    
+        // Si se proporciona una imagen, se procesa y se guarda
+        if ($imagen) {
+            $pathImg = $this->uploadImage($imagen);
+        }
+    
+        try {
+            // Preparar la consulta SQL para la actualización
+            if ($pathImg) {
+                // Si se ha subido una imagen, se incluye en la actualización
+                $query = $this->db->prepare('UPDATE juegos SET nombre = ?, fecha_lanzamiento = ?, jugadores = ?, ID_consola = ?, imagen = ? WHERE ID = ?');
+                $query->execute(array($nombre, $fechaLanzamiento, $jugadores, $IDConsola, $pathImg, $id));
+            } else {
+                // Si no se sube imagen, se actualizan los demás campos sin modificar la imagen
+                $query = $this->db->prepare('UPDATE juegos SET nombre = ?, fecha_lanzamiento = ?, jugadores = ?, ID_consola = ? WHERE ID = ?');
+                $query->execute(array($nombre, $fechaLanzamiento, $jugadores, $IDConsola, $id));
+            }
+        } catch (Exception $e) {
+            // Manejo de la excepción
+            return false;
+        }
+    
+        return true;
     }
     
-    public function updateConsola($id,$nombre,$marca,$color,$generacion){
+    
+    
+    public function updateConsola( $nombre,$marca,$color,$generacion,$id){
         
         try{
-            $consulta = $this->db->prepare('UPDATE`consolas` SET `nombre`=?, `marca`=?, `color`=?, `generacion`=? WHERE ID=? ');
-            $consulta->execute(array($nombre,$marca,$color,$generacion,$id));
+            $query = $this->db->prepare('UPDATE`consolas` SET `nombre`=?, `fecha_lanzamiento`=?,`jugadores`=?,`ID_consola`=?, imagen WHERE ID=? ');
+            $query->execute(array($nombre,$marca,$color,$generacion,$id));
             
         }
         catch(Exception $e){
@@ -141,10 +181,17 @@ class Model {
 
 
 
-    public function deleteJuego($id){
+
+
+   /* public function deleteJuego($id){
         $query = $this->db->prepare('DELETE FROM `juegos` WHERE ID=?');
         $query->execute($id);
+    }*/
+    public function deleteJuego($id) {
+        $query = $this->db->prepare('DELETE FROM `juegos` WHERE ID=?');
+        $query->execute([$id]); // Asegúrate de pasar el ID como un array
     }
+    
     public function deleteConsola($id){
         $query = $this->db->prepare('DELETE FROM `consolas` WHERE ID=?');
         $query->execute($id);

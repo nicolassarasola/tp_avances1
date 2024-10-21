@@ -1,74 +1,25 @@
-<?php
-require('./Templates/head.phtml');
-?>
 
-<section>
-    <h1 id="main-title">CATÁLOGO CRUD0</h1>
-</section>
-
-<?php
-require 'showFormBuscador.phtml';
-?>
-
-
-<div class="button-container">
     <?php
-    require 'modalFormProducto.phtml';
-    require 'modalFormCategoria.phtml';
-     ?>
-</div>
+
+    $consola = '';
+    foreach ($juegos as $juego) : ?>
+        <tr>
+            <td><?= $juego->ID; ?></td>
+            <td><?= $juego->nombre; ?></td>
+            <td><?= $juego->fecha_lanzamiento; ?></td>
+            <td><?= $juego->jugadores; ?></td>
+           
+           
+        </tr>
+    <?php endforeach; ?>
 
 
 
-<table class="table table-dark table-striped">
-    <tr>
-        <th>ID</th>
-        <th>NOMBRE</th>
-        <th>EMPRESA</th>
-        <th>CONSOLA</th>
-        <th>
-            MODIFICAR
-        </th>
 
-        <th>
-            ELIMINAR
-        </th>
-    </tr>
-
-    <tbody>
-        <?php
-
-        $consola = '';
-        foreach ($juegos as $juego) {
-            if ($juego['id_consolaJ'] == 1) {
-                $consola = 'PS4';
-
-            } else if ($juego['id_consolaJ'] == 2) {
-                $consola = 'XBOX';
-
-
-            } else if ($juego['id_consolaJ'] == 3) {
-                $consola = 'NINTENDO';
-
-            }
-            echo "<tr>";
-            echo "<td>" . $juego['id_juego'] . "</td>";
-            echo "<td>" . $juego['nombre_juego'] . "</td>";
-            echo "<td>" . $juego['empresa'] . "</td>";
-            echo "<td>" . $consola . "</td>";
-            echo "<td><a href=''  id=" . $juego['id_juego'] . " class='btn btn-small btn btn-warning'  >" . "<i class='fa-solid fa-pen'>    </i>  </a> </td>";
-            echo "<td><a href=''  id=" . $juego['id_juego'] . " class='btn btn-small btn btn-danger'  >" . "<i class='fa-solid fa-trash'>    </i>  </a> </td>";
-            echo "</tr>";
-
-        }
-
-
-
-        ?>
-    </tbody>
+</tbody>
 </table>
 
-<script src="../scripts/scriptFormBuscador.js"></script>
+<script src="../scripts/formBuscador.js"></script>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"

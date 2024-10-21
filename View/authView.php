@@ -3,7 +3,7 @@
 class AuthView {
     private $user = null;
 
-    public function showLogin($error = '') {
+    public function showLogin() {
         require 'templates/formLogin.phtml';
     }
 

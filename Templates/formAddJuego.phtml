@@ -1,66 +1,23 @@
-<div class="container py-2" >
+<form action="addJuego" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="action" value="addJuego"> 
+    <input type="text" name="nombreJuego" placeholder="inserte nombre">
+    <input type="date" name="fechaLanzamiento">
+    <input type="number" name="cantidadJugadores" placeholder="jugadores">
+    
+   
+                <label for="categoriaElegidaModal" class="form-label">Categoría</label>
+                <select class="form-select" name="categoriaID"
+                    required>
+                    <?php
+                    foreach ($consolas as $consola) {
+                        echo "<option value='" . $consola->ID . "'>" . $consola->nombre . "</option>";
+ 
 
-     
-    <button class="btn btn-dark" data-bs-toggle="modal" data-bs-target="#miModal">AGREGAR JUEGO</button>
+                    }
+                    ?>
+                </select>
+           
+    <input type="file" name="input_name" id="imageToUpload">
 
-    <div class="modal fade" id="miModal">
-
-        <div class="modal-dialog modal-dialog-scrollable">
-
-            <div class="modal-content">
-
-                <div class="modal-header">
-                    <h5 class="modal-title">FORMULARIO DE PRODUCTOS</h5>
-
-                    <button class="btn-close" data-bs-dismiss="modal">X</button>
-                </div>
-
-                <div class="modal-body">
-                    <form class="form-container" action='' method='POST' enctype="multipart/form-data" >
-                        <div class="mb-3">
-                            <label for="nombreJuego" class="form-label">Nombre del juego</label>
-                            <input type="text" class="form-control" id="nombreJuego" name="nombreJuego">
-                        </div>
-                       
-                        <div class="mb-3">
-                            <label for="cantidadJugadores" class="form-label">Jugadores:</label>
-                            <input type="number" class="form-control" id="cantidadJugadores" name="cantidadJugadores" min="1">
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="fechaLanzamiento" class="form-label">Fecha de lanzamiento:</label>
-                            <input type="date" class="form-control" id="fechaLanzamiento" name="fechaLanzamiento" >
-                        </div>
-                        <div class="mb-3">
-                            <label for="categoriaElegidaModal" class="form-label">Categoría</label>
-                            <select class="form-select" name="categoriaElegidaModal" id="categoriaElegidaModal">
-                                <option value=""> </option>
-                                <option value="1">PS4</option>
-                                <option value="2">XBOX</option>
-                                <option value="3">NINTENDO</option>
-                            </select>
-                        </div>
-
-                        <div class="mb-3">
-                            <label for="imagenJuego" class="form-label">Imagen del juego:</label>
-                            <input type="file" name="imagenJuego" id="imageToUpload">
-                        </div>
-                        <div class="mb-3 form-check">
-                            <input type="checkbox" class="form-check-input" id="exampleCheck1" required>
-                            <label class="form-check-label" for="exampleCheck1">Check me out</label>
-                        </div>
-                        <button type="submit" class="btn btn-success">ENVIAR</button>
-                </div>
-
-                <div class="modal-footer">
-                    <button class="btn btn-danger" data-bs-dismiss="modal">Cancelar</button>
-                    <button class="btn btn-primary">Guardar</button>
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</div>
+    <button type="submit">agregar</button>
+</form>

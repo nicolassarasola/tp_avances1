@@ -18,10 +18,14 @@
         <div class="mb-3">
             <label for="categoriaElegida" class="form-label">Categoría</label>
             <select class="form-select" name="categoriaElegida" id="categoriaElegida" disabled>
-                <option value=""> </option>
-                <option value="1">PS4</option>
-                <option value="2">XBOX</option>
-                <option value="3">NINTENDO</option>
+            <option value=""> </option>
+                <?php
+                foreach ($consolas as $consola) {
+                    echo "<option value=" . $consola->ID . " name=" . $consola->ID . ">" . $consola->nombre . "</option>";
+
+
+                }
+                ?>
             </select>
         </div>
         <div class="mb-3 form-check">
@@ -30,9 +34,9 @@
         </div>
         <button type="submit" class="btn btn-primary">BUSCAR</button>
     </form>
-   
-    <script src="scripts/scriptFormBuscador.js"></script>
-    <script src="../scripts/scriptFormBuscador.js"></script>
+
+    <script src="scripts/formBuscador.js"></script>
+    <script src="../scripts/formBuscador.js"></script>
     </body>
 
     </html>
