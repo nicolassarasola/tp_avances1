@@ -84,7 +84,7 @@ class View{
       require_once './Templates/showError.phtml';
    }
 
-   public function showFormAddJuego($consolas){//<-----falta agregar el seleccionar la consola a la que pertenece clickeandola
+   public function showFormAddJuego($consolas){
       require_once './Templates/header.phtml';
       require_once './Templates/formAddJuego.phtml';
    }
@@ -109,13 +109,11 @@ class View{
    public function showDeleteConsola($consolas){
       require_once './Templates/header.phtml';
       require_once './Templates/formDeleteConsolas.phtml';
-      require_once './Templates/showCatalogo.phtml';
    }
 
-   public function showDeleteJuego($juegos){
+   public function showDeleteJuego($juegos,$consolas){
       require_once './Templates/header.phtml';
       require_once './Templates/formDeleteJuego.phtml';
-      require_once './Templates/showCatalogo.phtml';
    }
    
 }

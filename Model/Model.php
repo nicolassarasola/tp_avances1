@@ -183,18 +183,15 @@ class Model {
 
 
 
-   /* public function deleteJuego($id){
-        $query = $this->db->prepare('DELETE FROM `juegos` WHERE ID=?');
-        $query->execute($id);
-    }*/
+
     public function deleteJuego($id) {
         $query = $this->db->prepare('DELETE FROM `juegos` WHERE ID=?');
-        $query->execute([$id]); // Asegúrate de pasar el ID como un array
+        $query->execute([$id]); 
     }
     
     public function deleteConsola($id){
         $query = $this->db->prepare('DELETE FROM `consolas` WHERE ID=?');
-        $query->execute($id);
+        $query->execute([$id]);
     }
 
 }

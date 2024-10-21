@@ -1,4 +1,16 @@
+<div style="display:flex">
+    <ul>
+        <?php foreach($juegos as $juego): ?>
+        <li><h3>ID:<?=$juego->ID?>, juego: <?=$juego->nombre?></h3></li>
+        <?php endforeach ?>
+    </ul>
 
+    <ul>
+        <?php foreach($consolas as $consola): ?>
+        <li><h3>ID:<?=$consola->ID?>, consola: <?=$consola->nombre?></h3></li>
+        <?php endforeach ?>
+    </ul>
+</div>  
 <form action="deleteJuego" method="post">
 <input type="hidden" name="action" value="deleteJuego">
     <input type="text" name="ID" placeholder="insertar id a borrar">
