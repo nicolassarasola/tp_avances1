@@ -3,12 +3,10 @@ require_once './model/Model.php';
 require_once './Model/modelCatalogo.php';
 require_once './Model/modelConsolas.php';
 require_once './Model/modelCrud.php';
-require_once './view/View.php';
+require_once './View/View.php';
 ///
 class Controller
 {
-
-    private $aceituna;
     private $view;
     private $model;
 
@@ -146,6 +144,7 @@ class Controller
         ) {
 
             $this->view->showMensaje('ingrese los datos correctamente');
+            
         } else {
             $nombre = $_POST['nombreCategoria'];
             $consola = $this->modelConsolas->getConsolaByName($nombre);

@@ -78,15 +78,15 @@ switch ($params[0]) {
     
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res); 
-        //$controller = new Controller();
-        //$controller->addJuego();
+        $controller = new Controller();
+        $controller->addJuego();
        
         break;
     case 'deletejuego':
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res); 
         $controller = new Controller();
-        $controller->deleteJuego($params);
+        $controller->deleteJuego($params[1]);
         break;
 
 

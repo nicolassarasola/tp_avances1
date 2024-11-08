@@ -16,10 +16,9 @@ class modelCrud {
     }
 
 
-/////////////////////////////////////////////////
+
     
-    public function addjuego($nombre, $fechaLanzamiento, $jugadores, $IDConsola, $imagen = null)
-    {
+    public function addjuego($nombre, $fechaLanzamiento, $jugadores, $IDConsola, $imagen = null){
         $pathImg = null;
         if ($imagen)
             $pathImg = $this->uploadImage($imagen);
@@ -30,27 +29,21 @@ class modelCrud {
         
     }
 
-    private function uploadImage($image)
-    {
+    private function uploadImage($image){
         
         $target = './img/juego/' . uniqid() . "." . strtolower(pathinfo($image['name'], PATHINFO_EXTENSION));
         move_uploaded_file($image['tmp_name'], $target);
         return $target;
     }
-
-    
-    //////////////////////////////////////////////////
-    
+  
     
     public function addConsola($nombre, $marca, $color, $generacion)
     {
-        try {
+       
             $sentencia = $this->db->prepare("INSERT INTO `consolas`(`nombre`, `marca`,`color`,`generacion`) VALUES (?,?,?,?)");
             
             $sentencia->execute([$nombre, $marca, $color, $generacion]);
-        } catch (Exception $e) {
-            return;
-        }
+
     }
 
     
