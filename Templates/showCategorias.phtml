@@ -1,0 +1,19 @@
+<?php
+    echo "<h2>" . $consola . "</h2>";
+    foreach ($juegos as $juego) {
+        echo "<tr>";
+        echo "<td>" . $juego->ID . "</td>";
+        echo "<td>" . $juego->nombre . "</td>";
+        echo "<td>" . $juego->fecha_lanzamiento . "</td>";
+        echo "<td>" . $juego->jugadores . "</td>";
+        echo "<td><a href='formUpdateJuego.phtml'  id=" . $juego->ID . " class='btn btn-small btn btn-warning'  >" . "<i class='fa-solid fa-pen'>    </i>  </a> </td>";
+     echo "<td><a href=''  id=" . $juego->ID. " class='btn btn-small btn btn-danger'  >" . "<i class='fa-solid fa-trash'>    </i>  </a> </td>";
+        echo "</tr>";
+        
+
+
+
+
+    } 
+    
+ 

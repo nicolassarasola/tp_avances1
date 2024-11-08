@@ -1,0 +1,23 @@
+<form action="addJuego" method="POST" enctype="multipart/form-data">
+<input type="hidden" name="action" value="addJuego"> 
+    <input type="text" name="nombreJuego" placeholder="inserte nombre">
+    <input type="date" name="fechaLanzamiento">
+    <input type="number" name="cantidadJugadores" placeholder="jugadores">
+    
+   
+                <label for="categoriaElegidaModal" class="form-label">Categoría</label>
+                <select class="form-select" name="categoriaID"
+                    required>
+                    <?php
+                    foreach ($consolas as $consola) {
+                        echo "<option value='" . $consola->ID . "'>" . $consola->nombre . "</option>";
+ 
+
+                    }
+                    ?>
+                </select>
+           
+    <input type="file" name="input_name" id="imageToUpload">
+
+    <button type="submit">agregar</button>
+</form>

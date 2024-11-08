@@ -1,0 +1,13 @@
+<ul>
+    <?php foreach($consolas as $consola): ?>
+       <li><h3>ID:<?=$consola->ID?>, consola: <?=$consola->nombre?></h3></li>
+    <?php endforeach ?>
+</ul>
+
+
+<form action="deleteConsola" method="post">
+<input type="hidden" name="action" value="deleteConsola">
+  
+    <input type="text" name="ID" placeholder="insertar id a borrar">
+    <button type="submit">borrar</button>
+</form>
