@@ -16,7 +16,7 @@ class View{
       require_once './Templates/headerTabla.phtml';
       require './templates/showJuego.phtml';
       } */
-     public function showCatalogo($juegos, $consolas)
+     public function showCatalogo($juegos)
      {
       require_once './Templates/header.phtml';
      
@@ -45,7 +45,7 @@ class View{
      
    }
 
-   public function showJuego($juego, $consolas){
+   public function showJuego($juego, $consola){
       require_once './Templates/header.phtml';
     
        require_once './Templates/headerTabla.phtml';
@@ -96,11 +96,11 @@ class View{
       require_once './Templates/formUpdateConsola.phtml';
    }
 
-   public function showUpdateJuegos($juegos,$consolas){
+   public function showUpdateJuegos($juegos){
       require_once './Templates/header.phtml';
       require_once './Templates/formUpdateJuego.phtml';
-      require_once './Templates/headerTabla.phtml';
-      require_once './Templates/showCatalogo.phtml';
+      require './Templates/showFooter.phtml';
+     
    }
 
    public function showDeleteConsola($consolas){
@@ -108,7 +108,7 @@ class View{
       require_once './Templates/formDeleteConsolas.phtml';
    }
 
-   public function showDeleteJuego($juegos,$consolas){
+   public function showDeleteJuego($juegos){
       require_once './Templates/header.phtml';
       require_once './Templates/formDeleteJuego.phtml';
    }

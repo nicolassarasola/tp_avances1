@@ -3,10 +3,12 @@ require_once './model/Model.php';
 require_once './Model/modelCatalogo.php';
 require_once './Model/modelConsolas.php';
 require_once './Model/modelCrud.php';
-require_once './View/View.php';
+require_once './view/View.php';
 ///
 class Controller
 {
+
+    private $aceituna;
     private $view;
     private $model;
 
@@ -34,12 +36,16 @@ class Controller
         $this->view->showHome();
     }
 
+    
     public function showCatalogo()
     {
 
         $juegos = $this->modelCatalogo->getCatalogo();
-        $consolas = $this->modelConsolas->getConsolas();
-        $this->view->showCatalogo($juegos, $consolas);
+        foreach($juegos as $juego) {
+            $juego->nombreConsola = $this->modelConsolas->getNameConsola($juego->ID_consola)->nombre;
+            
+        }
+        $this->view->showCatalogo($juegos);
 
 
     }
@@ -60,10 +66,10 @@ class Controller
     public function showJuego($id)
     {
         $juego = $this->model->getJuego($id);
-        $consolas = $this->modelConsolas->getConsolas();
+        $consola = $this->modelConsolas->getConsola($juego->ID_consola);
         try {
             if ($juego) {
-                $this->view->showJuego($juego, $consolas);
+                $this->view->showJuego($juego, $consola->nombre);
 
 
             } else {
@@ -144,7 +150,6 @@ class Controller
         ) {
 
             $this->view->showMensaje('ingrese los datos correctamente');
-            
         } else {
             $nombre = $_POST['nombreCategoria'];
             $consola = $this->modelConsolas->getConsolaByName($nombre);
@@ -170,8 +175,11 @@ class Controller
     {
 
         $juegos = $this->modelCatalogo->getCatalogo();
-        $consolas = $this->modelConsolas->getConsolas();
-        $this->view->showUpdateJuegos($juegos, $consolas);
+        foreach($juegos as $juego) {
+            $juego->nombreConsola = $this->modelConsolas->getNameConsola($juego->ID_consola)->nombre;
+            
+        }
+        $this->view->showUpdateJuegos($juegos);
 
 
         if (
@@ -241,11 +249,16 @@ class Controller
             $generacion = $_POST['generacion'];
 
             if ($id) {
-                $consola = $this->modelConsolas->getConsolaByName($nombre);
+                $consola = $this->modelConsolas->getConsola($id);
 
-                if ($consola) {
+              /*  if (!empty($consola)) {
                     $this->view->showError('consola no valida, el elemento ya existe');
-                } else {
+                }*/
+                
+                 if (empty($consola)) {
+                    $this->view->showError('La consola asignada no existe. No se puede modificar un elemento inexistente');
+                }
+                else {
                     $this->modelCrud->updateConsola($nombre, $marca, $color, $generacion, $id);
 
                     $this->view->showMensaje('cambio realizado');
@@ -259,8 +272,13 @@ class Controller
     {
 
         $juegos = $this->modelCatalogo->getCatalogo();
-        $consolas = $this->modelConsolas->getConsolas();
-        $this->view->showDeleteJuego($juegos, $consolas);
+
+    
+        foreach($juegos as $juego) {
+            $juego->nombreConsola = $this->modelConsolas->getNameConsola($juego->ID_consola)->nombre;
+            
+        }
+        $this->view->showDeleteJuego($juegos);
 
 
         if (isset($_POST['ID']) && !empty($_POST['ID'])) {

@@ -35,6 +35,7 @@ class AuthController {
             session_start();
             $_SESSION['ID_USER'] = $userFromDB->id;
             $_SESSION['EMAIL_USER'] = $userFromDB->email;
+            $_SESSION['LAST_ACTIVITY'] = time();
     
             header('Location: ' . BASE_URL);
         } else {

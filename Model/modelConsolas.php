@@ -37,6 +37,16 @@ public function getConsola($id)
     return $consola;
 }
 
+public function getNameConsola($id)
+{
+    $sentencia = $this->db->prepare('SELECT nombre FROM `consolas` WHERE ID = ?');
+    $sentencia->execute(array($id));
+    $consola = $sentencia->fetch(PDO::FETCH_OBJ);
+
+    return $consola;
+}
+
+
 
 public function getConsolaByName($nombre)
 {

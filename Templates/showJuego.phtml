@@ -2,9 +2,10 @@
 <?php
 
 echo "<h2>". $consola . "</h2>";
-
+echo $juego->imagen; 
 ?>
- <img src="<?= $juego->imagen; ?>" alt="<?= $juego->nombre; ?>" style="width: 200px;">
+
+<img src="<?= $juego->imagen; ?>" alt="<?= $juego->nombre; ?>" style="width: 200px;">
     <?php
   
     echo "<tr>";
@@ -12,8 +13,8 @@ echo "<h2>". $consola . "</h2>";
     echo "<td>" . $juego->nombre . "</td>";
     echo "<td>" . $juego->fecha_lanzamiento . "</td>";
     echo "<td>" . $juego->jugadores . "</td>";
-    echo "<td><a href='formUpdateJuego.phtml'  id=" . $juego->ID . " class='btn btn-small btn btn-warning'  >" . "<i class='fa-solid fa-pen'>    </i>  </a> </td>";
-    echo "<td><a href=''  id=" . $juego->ID. " class='btn btn-small btn btn-danger'  >" . "<i class='fa-solid fa-trash'>    </i>  </a> </td>";
+    echo "<td>" . $consola ."</td>";
+   
     echo "</tr>";
      ?>
     

@@ -33,16 +33,9 @@ switch ($params[0]) {
         $controller->showHome();
         break;
     case 'catalogo':
-        if ((count($params) === 2) && (is_numeric($params[1]))) {
-            $controller = new Controller();
-            $controller->showCatalogoEspecifico($params[1]);
-            break;
-        } else {
-            $controller = new Controller();
-            $controller->showCatalogo();
-            break;
-
-        }
+        $controller = new Controller();
+        $controller->showCatalogo();
+        break;
     case 'juego':
         if ((count($params) === 2) && is_numeric($params[1])) {
             $controller = new Controller();
@@ -71,22 +64,22 @@ switch ($params[0]) {
         }
     case 'categorias':
         $controller = new Controller();
-        $controller->showCategorias();  
+        $controller->showCategorias();
         break;
 
     case 'addjuego':
-    
+
         sessionAuthMiddleware($res);
-        verifyAuthMiddleware($res); 
+        verifyAuthMiddleware($res);
         $controller = new Controller();
         $controller->addJuego();
-       
+
         break;
     case 'deletejuego':
         sessionAuthMiddleware($res);
-        verifyAuthMiddleware($res); 
+        verifyAuthMiddleware($res);
         $controller = new Controller();
-        $controller->deleteJuego($params[1]);
+        $controller->deleteJuego($params);
         break;
 
 
@@ -108,7 +101,7 @@ switch ($params[0]) {
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
         $controller = new Controller();
-        $controller->deleteConsola($params[1]);
+        $controller->deleteConsola($params);
         break;
 
     case 'updateconsola':
