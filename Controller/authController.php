@@ -1,6 +1,6 @@
 <?php
-require_once './model/userModel.php';
-require_once './view/authView.php';
+require_once './Model/userModel.php';
+require_once './View/authView.php';
 
 class AuthController {
     private $model;
@@ -35,7 +35,6 @@ class AuthController {
             session_start();
             $_SESSION['ID_USER'] = $userFromDB->id;
             $_SESSION['EMAIL_USER'] = $userFromDB->email;
-            $_SESSION['LAST_ACTIVITY'] = time();
     
             header('Location: ' . BASE_URL);
         } else {
