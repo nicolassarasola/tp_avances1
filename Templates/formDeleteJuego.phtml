@@ -1,18 +1,35 @@
-<div style="display:flex">
-    <ul>
-        <?php foreach($juegos as $juego): ?>
-        <li><h3>ID:<?=$juego->ID?>, juego: <?=$juego->nombre?></h3></li>
-        <?php endforeach ?>
-    </ul>
-
-    <ul>
-        <?php foreach($consolas as $consola): ?>
-        <li><h3>ID:<?=$consola->ID?>, consola: <?=$consola->nombre?></h3></li>
-        <?php endforeach ?>
-    </ul>
-</div>  
-<form action="deleteJuego" method="post">
+<h1>ELIMINAR JUEGO</h1>
+<form action="deletejuego" method="post">
 <input type="hidden" name="action" value="deleteJuego">
     <input type="text" name="ID" placeholder="insertar id a borrar">
     <button type="submit">borrar</button>
 </form>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+      <th scope="col">JUEGO</th>
+      <th scope="col">FECHA LANZAMIENTO</th>
+      <th scope="col">JUGADORES</th>
+      <th scope="col">ID CONSOLA</th>
+      <th scope="col">CONSOLA</th>
+    </tr>
+</thead>
+  <tbody>
+    <?php
+    
+     foreach($juegos as $juego) {
+        echo "<tr>";
+        echo "<td>" . $juego->ID  ."</td>";
+        echo  "<td>" . $juego->nombre . "</td>";
+        echo "<td>" . $juego->fecha_lanzamiento . "</td>";
+        echo "<td>" . $juego->jugadores ."</td>";
+        echo "<td>" . $juego->ID_consola . "</td>";
+        echo "<td>" . $juego->nombreConsola . "</td>";
+        
+     }
+     
+     ?>
+
+  </tbody>
+</table>

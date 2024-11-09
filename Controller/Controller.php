@@ -3,10 +3,11 @@ require_once './model/Model.php';
 require_once './Model/modelCatalogo.php';
 require_once './Model/modelConsolas.php';
 require_once './Model/modelCrud.php';
-require_once './View/View.php';
+require_once './view/View.php';
 ///
 class Controller
 {
+
     private $view;
     private $model;
 
@@ -34,12 +35,16 @@ class Controller
         $this->view->showHome();
     }
 
+    
     public function showCatalogo()
     {
 
         $juegos = $this->modelCatalogo->getCatalogo();
-        $consolas = $this->modelConsolas->getConsolas();
-        $this->view->showCatalogo($juegos, $consolas);
+        foreach($juegos as $juego) {
+            $juego->nombreConsola = $this->modelConsolas->getNameConsola($juego->ID_consola)->nombre;
+            
+        }
+        $this->view->showCatalogo($juegos);
 
 
     }
@@ -60,10 +65,10 @@ class Controller
     public function showJuego($id)
     {
         $juego = $this->model->getJuego($id);
-        $consolas = $this->modelConsolas->getConsolas();
+        $consola = $this->modelConsolas->getConsola($juego->ID_consola);
         try {
             if ($juego) {
-                $this->view->showJuego($juego, $consolas);
+                $this->view->showJuego($juego, $consola->nombre);
 
 
             } else {
@@ -114,13 +119,7 @@ class Controller
             $jugadores = $_POST['cantidadJugadores'];
             $IDConsola = $_POST['categoriaID'];
 
-
-            if ($_FILES['input_name']['type'] == "image/jpg" || $_FILES['input_name']['type'] == "image/jpeg" || $_FILES['input_name']['type'] == "image/png") {
-                $this->modelCrud->addJuego($nombre, $fechaLanzamiento, $jugadores, $IDConsola, $_FILES['input_name']);
-            } else {
-                $this->modelCrud->addJuego($nombre, $fechaLanzamiento, $jugadores, $IDConsola);
-                $this->view->showError('error al procesar la imagen');
-            }
+            $this->modelCrud->addJuego($nombre, $fechaLanzamiento, $jugadores, $IDConsola);
 
 
             $this->view->showMensaje('juego agregado correctamente');
@@ -144,7 +143,6 @@ class Controller
         ) {
 
             $this->view->showMensaje('ingrese los datos correctamente');
-            
         } else {
             $nombre = $_POST['nombreCategoria'];
             $consola = $this->modelConsolas->getConsolaByName($nombre);
@@ -168,10 +166,13 @@ class Controller
 
     public function updateJuego()
     {
-
+        $consolas=$this->modelConsolas->getConsolas();
         $juegos = $this->modelCatalogo->getCatalogo();
-        $consolas = $this->modelConsolas->getConsolas();
-        $this->view->showUpdateJuegos($juegos, $consolas);
+        foreach($juegos as $juego) {
+            $juego->nombreConsola = $this->modelConsolas->getNameConsola($juego->ID_consola)->nombre;
+            
+        }
+        $this->view->showUpdateJuegos($juegos,$consolas);
 
 
         if (
@@ -192,28 +193,11 @@ class Controller
             $jugadores = $_POST['jugadores'];
             $IDConsola = $_POST['ID_consola'];
 
-
-            if (isset($_FILES['input_name']['name']) && !empty($_FILES['input_name']['name'])) {
-
-                if (
-                    $_FILES['input_name']['type'] == "image/jpg" ||
-                    $_FILES['input_name']['type'] == "image/jpeg" ||
-                    $_FILES['input_name']['type'] == "image/png"
-                ) {
-
-                    $this->modelCrud->updateJuego($nombre, $fecha_lanzamiento, $jugadores, $IDConsola, $_FILES['input_name'], $id);
-                    $this->view->showMensaje('Juego actualizado correctamente');
-                } else {
-
-                    $this->view->showError('Error al procesar la imagen. Formato no permitido.');
-                }
-            } else {
-
-                $this->modelCrud->updateJuego($nombre, $fecha_lanzamiento, $jugadores, $IDConsola, null, $id);
-                $this->view->showMensaje('Juego actualizado sin modificar la imagen.');
-            }
+            $this->modelCrud->updateJuego($nombre, $fecha_lanzamiento, $jugadores, $IDConsola, $id);
+            $this->view->showMensaje('Juego actualizado sin modificar la imagen.');
         }
     }
+    
 
 
 
@@ -241,11 +225,12 @@ class Controller
             $generacion = $_POST['generacion'];
 
             if ($id) {
-                $consola = $this->modelConsolas->getConsolaByName($nombre);
-
-                if ($consola) {
-                    $this->view->showError('consola no valida, el elemento ya existe');
-                } else {
+                $consola = $this->modelConsolas->getConsola($id);
+                
+                 if (empty($consola)) {
+                    $this->view->showError('La consola asignada no existe. No se puede modificar un elemento inexistente');
+                }
+                else {
                     $this->modelCrud->updateConsola($nombre, $marca, $color, $generacion, $id);
 
                     $this->view->showMensaje('cambio realizado');
@@ -259,8 +244,13 @@ class Controller
     {
 
         $juegos = $this->modelCatalogo->getCatalogo();
-        $consolas = $this->modelConsolas->getConsolas();
-        $this->view->showDeleteJuego($juegos, $consolas);
+
+    
+        foreach($juegos as $juego) {
+            $juego->nombreConsola = $this->modelConsolas->getNameConsola($juego->ID_consola)->nombre;
+            
+        }
+        $this->view->showDeleteJuego($juegos);
 
 
         if (isset($_POST['ID']) && !empty($_POST['ID'])) {

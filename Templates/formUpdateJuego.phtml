@@ -1,28 +1,51 @@
-<div style="display:flex">
-    <ul>
-        <?php foreach($juegos as $juego): ?>
-        <li><h3>ID:<?=$juego->ID?>, juego: <?=$juego->nombre?></h3></li>
-        <?php endforeach ?>
-    </ul>
 
-    <ul>
-        <?php foreach($consolas as $consola): ?>
-        <li><h3>ID:<?=$consola->ID?>, consola: <?=$consola->nombre?></h3></li>
-        <?php endforeach ?>
-    </ul>
-</div>
-<form action="updateConsola" method="post" enctype="multipart/form-data">
+<h1>MODIFICAR JUEGOS</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+      <th scope="col">JUEGO</th>
+      <th scope="col">FECHA LANZAMIENTO</th>
+      <th scope="col">JUGADORES</th>
+      <th scope="col">ID CONSOLA</th>
+      <th scope="col">CONSOLA</th>
+    </tr>
+</thead>
+  <tbody>
+    <?php
+    
+     foreach($juegos as $juego) {
+        echo "<tr>";
+        echo "<td>" . $juego->ID  ."</td>";
+        echo  "<td>" . $juego->nombre . "</td>";
+        echo "<td>" . $juego->fecha_lanzamiento . "</td>";
+        echo "<td>" . $juego->jugadores ."</td>";
+        echo "<td>" . $juego->ID_consola . "</td>";
+        echo "<td>" . $juego->nombreConsola . "</td>";
+        
+     }
+     
+     ?>
+<form action="updatejuego" method="post" enctype="multipart/form-data">
 <input type="hidden" name="action" value="updatejuego"> 
         <input type="number" name="ID" placeholder="inserte ID de articulo que desea modificar">
         <br><br>
         <input type="text" name="nombre" placeholder="nombre">
-        <input type="text" name="fecha_lanzamiento" placeholder="fecha de lanzamiento">
-        <input type="text" name="jugadores" placeholder="jugadores">
+        <input type="date" name="fecha_lanzamiento" placeholder="fecha de lanzamiento">
+        <input type="number" name="jugadores" placeholder="jugadores" min="1">
         
-        <input type="text" name="ID_consola" placeholder="inserte el id de la consola a la que correspondonde">
-        
-        
-        <input type="file" name="input_name" id="imageToUpload">
+       
+        <label for="categoriaElegidaModal" class="form-label">Categoría</label>
+                <select class="form-select" name="ID_consola"
+                    required>
+                    <?php
+                    foreach ($consolas as $consola) {
+                        echo "<option value='" . $consola->ID . "'>" . $consola->nombre . "</option>";
+ 
+
+                    }
+                    ?>
+                </select>
         <br>
         <button type="submit">modificar</button>
 

@@ -13,7 +13,7 @@ class Model
         );
     }
 
-//  Y ESTO QUE HACE?
+
     private function _deploy()
     {
         $query = $this->db->query('SHOW TABLES');

@@ -1,18 +1,40 @@
-<ul>
-    <?php foreach($consolas as $consola): ?>
-       <li><h3>ID:<?=$consola->ID?>, consola: <?=$consola->nombre?></h3></li>
-    <?php endforeach ?>
-</ul>
+<h1>MODIFICAR CONSOLAS</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">ID</th>
+      <th scope="col">NOMBRE</th>
+      <th scope="col">MARCA</th>
+      <th scope="col">COLOR</th>
+      <th scope="col">GENERACION</th>
+      
+    </tr>
+</thead>
+  <tbody>
+    <?php
+    
+     foreach($consolas as $consola) {
+        echo "<tr>";
+        echo "<td>" . $consola->ID  ."</td>";
+        echo  "<td>" . $consola->nombre . "</td>";
+        echo "<td>" . $consola->marca. "</td>";
+        echo "<td>" . $consola->color ."</td>";
+        echo "<td>" . $consola->generacion . "</td>";
+       
+        
+     }
+     
+     ?>
 
-<form action="updateConsola" method="post">
+<form action="updateconsola" method="POST">
     <input type="hidden" name="action" value="updateconsola"> 
-        <input type="number" name="ID" placeholder="inserte ID de articulo que desea modificar">
+        <input type="number" name="ID" placeholder="inserte ID de articulo que desea modificar" min="1">
         <br><br>
         <input type="text" name="nombre" placeholder="nuevo nombre">
         <input type="text" name="marca" placeholder="nueva marca">
         <input type="text" name="color" placeholder="nuevo color">
         <input type="text" name="generacion" placeholder="nueva generacion">
         <br>
-        <button type="submit">modificar</button>
+        <button type="submit">MODIFICAR</button>
 
 </form>
