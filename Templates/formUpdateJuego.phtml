@@ -34,10 +34,18 @@
         <input type="date" name="fecha_lanzamiento" placeholder="fecha de lanzamiento">
         <input type="number" name="jugadores" placeholder="jugadores" min="1">
         
-        <input type="text" name="ID_consola" placeholder="inserte el id de la consola a la que correspondonde">
-        
-        
-        <input type="file" name="input_name" id="imageToUpload">
+       
+        <label for="categoriaElegidaModal" class="form-label">Categoría</label>
+                <select class="form-select" name="ID_consola"
+                    required>
+                    <?php
+                    foreach ($consolas as $consola) {
+                        echo "<option value='" . $consola->ID . "'>" . $consola->nombre . "</option>";
+ 
+
+                    }
+                    ?>
+                </select>
         <br>
         <button type="submit">modificar</button>
 

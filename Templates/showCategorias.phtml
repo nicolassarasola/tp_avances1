@@ -1,6 +1,7 @@
+<br>
 <?php
     echo "<h2>" . $consola . "</h2>";
-    foreach ($juegos as $juego) {
+    foreach ($juegos as $juego) :
         echo "<tr>";
         echo "<td>" . $juego->ID . "</td>";
         echo "<td>" . $juego->nombre . "</td>";
@@ -9,11 +10,9 @@
         echo "<td>" . $consola . "</td>";
        
         echo "</tr>";
-        
 
 
 
-
-    } 
+    endforeach; 
     
  
