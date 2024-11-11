@@ -1,4 +1,13 @@
-<h1> ELIMINAR CONSOLAS</h1>
+<h1> ELIMINAR CONSOLAS</h1>  
+<form action="deleteconsola" method="post">
+<input type="hidden" name="action" value="deleteConsola">
+  
+    <input type="text" name="ID" placeholder="insertar id a borrar">
+    <button type="submit">borrar</button>
+</form>
+
+
+
 <table class="table">
     <thead>
     <tr>
@@ -23,13 +32,4 @@
        
         
      }
-     
      ?>
-
-
-<form action="deleteconsola" method="post">
-<input type="hidden" name="action" value="deleteConsola">
-  
-    <input type="text" name="ID" placeholder="insertar id a borrar">
-    <button type="submit">borrar</button>
-</form>

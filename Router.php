@@ -1,5 +1,6 @@
 <?php
-require_once './Controller/Controller.php';
+require_once './Controller/juegosController.php';
+require_once './Controller/consolasController.php';
 require_once './Controller/authController.php';
 
 require_once './libs/Response.php';
@@ -29,64 +30,73 @@ switch ($params[0]) {
     case 'home':
     case 'inicio':
     case 'principal':
-        $controller = new Controller();
+        $controller = new juegosController();
         $controller->showHome();
         break;
     case 'catalogo':
-        $controller = new Controller();
-        $controller->showCatalogo();
+        $controller = new juegosController();
+        $controller->showJuegos();
         break;
     case 'juego':
         if ((count($params) === 2) && is_numeric($params[1])) {
-            $controller = new Controller();
+            $controller = new juegosController();
             $controller->showJuego($params[1]);
             break;
 
         } else {
-            $controller = new Controller();
-            $controller->showCatalogo();
+            $controller = new juegosController();
+            $controller->showJuegos();
             break;
         }
     case 'juegos':
-        $controller = new Controller();
-        $controller->showCatalogo();
+        $controller = new juegosController();
+        $controller->showJuegos();
         break;
     case 'categoria':
         if ((count($params) === 2) && is_numeric($params[1])) {
-            $controller = new Controller();
+            $controller = new juegosController();
             $controller->showCategoriaEspecifica($params[1]);
             break;
         } else {
-            $controller = new Controller();
-            $controller->showCategorias(); //HACER UN APARTADO CON TODAS LAS OPCIONES
+            $controller = new juegosController();
+            $controller->showJuegosByCategorias(); //HACER UN APARTADO CON TODAS LAS OPCIONES
             break;
 
         }
     case 'categorias':
-        $controller = new Controller();
-        $controller->showCategorias();
+        $controller = new juegosController();
+        $controller->showJuegosByCategorias();
         break;
 
     case 'addjuego':
 
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
-        $controller = new Controller();
+        $controller = new juegosController();
         $controller->addJuego();
 
         break;
-    case 'deletejuego':
+    case 'deletejuego': 
+    if(!empty($params[1])){
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
-        $controller = new Controller();
-        $controller->deleteJuego($params);
+        $controller = new juegosController();
+        $controller->deleteJuego($params[1]);
         break;
+    }
+    else{
+        sessionAuthMiddleware($res);
+        verifyAuthMiddleware($res);
+        $controller = new juegosController();
+        $controller->deleteJuego(0);
+        break;
+    }
 
 
     case 'updatejuego':
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
-        $controller = new Controller();
+        $controller = new juegosController();
         $controller->updateJuego();
         break;
 
@@ -94,20 +104,30 @@ switch ($params[0]) {
     case 'addconsola':
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
-        $controller = new Controller();
+        $controller = new consolasController();
         $controller->addConsola();
         break;
+
     case 'deleteconsola':
-        sessionAuthMiddleware($res);
-        verifyAuthMiddleware($res);
-        $controller = new Controller();
-        $controller->deleteConsola($params);
-        break;
+            if(!empty($params[1])){
+            sessionAuthMiddleware($res);
+            verifyAuthMiddleware($res);
+            $controller = new consolasController();
+            $controller->deleteConsola($params[1]);
+            break;
+        }
+        else{
+            sessionAuthMiddleware($res);
+            verifyAuthMiddleware($res);
+            $controller = new consolasController();
+            $controller->deleteConsola(0);
+            break;
+        }
 
     case 'updateconsola':
         sessionAuthMiddleware($res);
         verifyAuthMiddleware($res);
-        $controller = new Controller();
+        $controller = new consolasController();
         $controller->updateConsola();
         break;
 
